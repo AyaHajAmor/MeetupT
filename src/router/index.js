@@ -11,22 +11,22 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '',
+    path: '/',
     name: 'Home',
     component: Home
   },
     {
-      path: 'meetups',
+      path: '/meetups',
       name: 'Meetups',
       component: Meetups
     },
     {
-      path: 'meetup/new',
+      path: '/meetup/new',
       name: 'CreateMeetup',
       component: CreateMeetup
     },
     {
-      path: 'meetups/:id',
+      path: '/meetups/:id',
       name: 'Meetup',
       props: true,
       component: Meetup
@@ -44,7 +44,9 @@ const routes = [
 ]
 
 const router = new VueRouter({
-  routes
-})
+  mode: "history",
+  routes 
+});
+
 
 export default router

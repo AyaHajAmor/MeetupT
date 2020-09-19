@@ -4,13 +4,13 @@
 				<h1 id="logo"><a href="index.html">Meetup</a></h1>
 				<nav id="nav">
 					<ul>
-						<li><a href="index.html">Home</a></li>
+						<li><a><router-link to="/">Home</router-link></a></li>
 						<li>
-							<a href="meetups.html">Meetups</a>
+							<a><router-link to="/meetups">All Meetups</router-link></a>
 						</li>
-						<li><a href="newMeetup.html">New Meetup</a></li>
-						<li><a href="#">Your Profile</a></li>
-						<li><a href="#" class="button primary">Logout</a></li>
+						<li><a><router-link to="/meetup/new">Organise Meetup</router-link></a></li>
+						<li><a href="#"><router-link to="/profile">Your Profile</router-link></a></li>
+						<li><a class="button primary"><router-link to="/">Logout</router-link></a></li>
 					</ul>
 				</nav>
 			</header>
