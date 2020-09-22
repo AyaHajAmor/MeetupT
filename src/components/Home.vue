@@ -1,30 +1,36 @@
 <template>
-<div>
-  <section id="banner">
-	<div class="content">
-		<div class="row gtr-uniform gtr-30">
-				<div class="col-6 col-12-xsmall" router to="/meetup/new">
-					<input type="submit" value="Organise meetup" class="fit primary" />
-				</div>
-				<router-link to="/meetups">
-					<div class="col-6 col-12-xsmall"  >
-						<input type="submit" value="view all Meetups" class="fit primary" />
+<v-app>
+	<div>
+				<section id="banner">
+					<div class="content">
+						<div class="row gtr-uniform gtr-30">
+							<div class="col-6 col-12-xsmall"  >
+										<router-link to="/meetup/new">
+										<input type="submit"  value="Organise Meetup" class="fit primary" />
+										</router-link> 
+									</div>
+									<div class="col-6 col-12-xsmall"  >
+										<router-link to="/meetups">
+										<input type="submit" value="View all Meetups" class="fit primary" />
+										</router-link> 
+									</div>
+								
+								
+						</div>
+						<router-view/>
+						<v-carousel style="cursor:pointer;">
+							
+							<v-carousel-item
+								v-for="meetup in meetups"
+								:src="meetup.imageUrl"
+								:key="meetup.id"
+								@click="onLoadMeetup(meetup.id)"
+								reverse-transition="fade-transition"
+								transition="fade-transition">
+						</v-carousel-item>
+						
+						</v-carousel>
 					</div>
-				<router-link> 
-		</div>
-		<router-view/>
-		<v-carousel>
-			
-			<v-carousel-item
-				v-for="meetup in meetups"
-				:src="meetup.imageUrl"
-				:key="meetup.id"
-				reverse-transition="fade-transition"
-				transition="fade-transition">
-		</v-carousel-item>
-		
-        </v-carousel>
-	</div>
 				</section>
 			<!-- Five -->
 				<section id="five" class="wrapper style2 special fade">
@@ -57,6 +63,7 @@
 				</footer>
 
 </div>
+</v-app>
 </template>
 
 <script>
@@ -70,6 +77,11 @@ data(){
 				{imageUrl : 'https://www.okvoyage.com/wp-content/uploads/2019/12/monastir.jpg' , title:'Monastir' , id:'2'},
 				{imageUrl : 'https://i.ytimg.com/vi/GwFTPhm-9xQ/maxresdefault.jpg' , title:'Sfax' , id:'3'},
 			]
+		}
+	},
+	methods:{
+		onLoadMeetup (id){
+			this.$router.push('/meetups/' + id)
 		}
 	}
   }

@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <header id="header">
-				<h1 id="logo"><a href="index.html">Meetup</a></h1>
+				<h1 id="logo"><a><router-link to="/">Meetup Tunisian</router-link></a></h1>
 				<nav id="nav">
 					<ul>
 						<li><a><router-link to="/">Home</router-link></a></li>
@@ -17,3 +17,4 @@
     <router-view/>
   </div>
 </template>
+<script>
