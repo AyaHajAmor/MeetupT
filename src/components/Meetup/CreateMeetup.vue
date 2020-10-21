@@ -2,55 +2,66 @@
   <div id="main" class="wrapper style1">
 					<div class="container">
                         <header class="major">
-							<h2>Right Sidebar</h2>
+							<h2>Create a new Meetup</h2>
 						</header>
 						<!-- Form -->
 							<section>
-								<form method="post" action="#">
+								<form @submit.prevent="onCreateMeetup">
 									<div class="row gtr-uniform gtr-50">
-										<div class="col-6 col-12-xsmall">
-											<input type="text" name="name" id="name" value="" placeholder="Name" />
+										<div class="col-12 col-12-xsmall">
+											<input type="text" 
+											name="title" 
+											id="title" 
+											placeholder="Name" 
+											label="Title" 
+											v-model="title"
+											required />
 										</div>
-										<div class="col-6 col-12-xsmall">
-											<input type="email" name="email" id="email" value="" placeholder="Email" />
+										<div class="col-12 col-12-xsmall">
+											<input type="text" 
+											name="location" 
+											id="location" 
+											placeholder="Location" 
+											label="Location"
+											v-model="location" 
+											required/>
 										</div>
-										<div class="col-12">
-											<select name="category" id="category">
-												<option value="">- Category -</option>
-												<option value="1">Manufacturing</option>
-												<option value="1">Shipping</option>
-												<option value="1">Administration</option>
-												<option value="1">Human Resources</option>
-											</select>
+										<div class="col-12 col-12-xsmall">
+											<input type="text" 
+											name="imageUrl" 
+											id="image Url" 
+											placeholder="Image Url" 
+											label="image-url"
+											v-model="imageUrl" 
+											required/>
 										</div>
-										<div class="col-4 col-12-medium">
-											<input type="radio" id="priority-low" name="priority" checked>
-											<label for="priority-low">Low Priority</label>
-										</div>
-										<div class="col-4 col-12-medium">
-											<input type="radio" id="priority-normal" name="priority">
-											<label for="priority-normal">Normal Priority</label>
-										</div>
-										<div class="col-4 col-12-medium">
-											<input type="radio" id="priority-high" name="priority">
-											<label for="priority-high">High Priority</label>
-										</div>
-										<div class="col-6 col-12-medium">
-											<input type="checkbox" id="copy" name="copy">
-											<label for="copy">Email me a copy of this message</label>
-										</div>
-										<div class="col-6 col-12-medium">
-											<input type="checkbox" id="human" name="human" checked>
-											<label for="human">I am a human and not a robot</label>
+										<div class="col-12 col-12-xsmall">
+											<img :src="imageUrl" height="300" >
 										</div>
 										<div class="col-12">
-											<textarea name="message" id="message" placeholder="Enter your message" rows="6"></textarea>
+											<textarea 
+											style="border:solid 1px rgba(255, 255, 255, 0.3)" 
+											name="description" id="description" 
+											placeholder="Description .." 
+											rows="6" 
+											v-model="description"
+											required >
+											</textarea>
 										</div>
-										<div class="col-12">
-											<ul class="actions">
-												<li><input type="submit" value="Send Message" class="primary" /></li>
-												<li><input type="reset" value="Reset" /></li>
-											</ul>
+										<div class="col-8 col-12-xsmall">
+											<input type="text" 
+											name="date" 
+											id="date" 
+											placeholder="Choose a Date   :     dd-mm-yyyy" 
+											label="Date"
+											required/>
+										</div>
+										<div class="col-4 col-12-xsmall"> Today is : <br>{{submittableDate | date}}</div>
+										<div class="col-12 col-12-xsmall">
+											
+											<input type="submit" value="Send Message" class="primary" :disabled="!formIsvalid" />
+											
+											
 										</div>
 									</div>
 								</form>
@@ -61,8 +72,50 @@
 </template>
 
 <script>
+
 export default {
+	
  name :'CreateMeetup' ,
+ data(){
+	return {
+			title: '',
+			location: '',
+			imageUrl: '',
+			description: '',
+			date:new Date()
+	}
+ },
+ computed: {
+	formIsvalid(){
+		return this.title !==''&& 
+		this.location !=='' && 
+		this.imageUrl !=='' && 
+		this.description !=='' &&
+		this.date !==''
+	},
+	submittableDate (){
+		const date = new Date(this.date)
+		console.log(date)
+		return date
+	}
+ },
+ methods:{
+	onCreateMeetup(){
+		if( !this.formIsvalid){
+			return
+		}
+		const meet ={
+				title : this.title,
+				location: this.location,
+				imageUrl : this.imageUrl,
+				description: this.description,
+				date: this.submittableDate
+		}
+		this.$store.dispatch('createMeetup',meet)
+		this.$router.push('/meetups')
+	}
+	
+ }
 }
 </script>
 

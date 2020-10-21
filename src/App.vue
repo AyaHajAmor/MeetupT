@@ -1,15 +1,14 @@
 <template>
   <div id="app">
-    <header id="header">
+    <header id="header" >
 				<h1 id="logo"><a><router-link to="/">Meetup Tunisian</router-link></a></h1>
 				<nav id="nav">
 					<ul>
-						<li><a><router-link to="/">Home</router-link></a></li>
-						<li>
-							<a><router-link to="/meetups">All Meetups</router-link></a>
-						</li>
-						<li><a><router-link to="/meetup/new">Organise Meetup</router-link></a></li>
-						<li><a href="#"><router-link to="/profile">Your Profile</router-link></a></li>
+					<li v-for="item in menuItems" :key="item.title" >
+							<a><router-link :to='item.link'>{{ item.title }}</router-link></a>
+					
+					</li>
+						
 						<li><a class="button primary"><router-link to="/">Logout</router-link></a></li>
 					</ul>
 				</nav>
@@ -18,3 +17,27 @@
   </div>
 </template>
 <script>
+
+export default {
+	computed: {
+      menuItems () {
+        let menuItems = [
+          {title: 'Sign up', link: '/signup'},
+          {title: 'Sign in', link: '/signin'}
+        ]
+        if (this.userIsAuthenticated) {
+          menuItems = [
+              {title: 'Home', link: '/'},
+              {title: 'View Meetups', link: '/meetups'},
+              { title: 'Organize Meetup', link: '/meetup/new'},
+              {title: 'Profile', link: '/profile'}
+          ]
+        }
+        return menuItems
+      },
+      userIsAuthenticated () {
+        return this.$store.getters.user !== null && this.$store.getters.user !== undefined
+      }
+	}
+}
+</script>

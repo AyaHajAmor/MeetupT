@@ -1,5 +1,5 @@
 <template>
-<v-app>
+
 	<div>
 				<section id="banner">
 					<div class="content">
@@ -63,21 +63,18 @@
 				</footer>
 
 </div>
-</v-app>
 </template>
 
 <script>
   export default {
     name: 'Home',
-	
-data(){
-		return{
-			meetups: [
-				{imageUrl : 'https://i0.wp.com/www.webdo.tn/wp-content/uploads/2018/11/Tunisie_Sousse-1.jpg?fit=3500%2C2064' , title:'Sousse' , id:'1'},
-				{imageUrl : 'https://www.okvoyage.com/wp-content/uploads/2019/12/monastir.jpg' , title:'Monastir' , id:'2'},
-				{imageUrl : 'https://i.ytimg.com/vi/GwFTPhm-9xQ/maxresdefault.jpg' , title:'Sfax' , id:'3'},
-			]
-		}
+	computed:{
+		meetups (){
+			return this.$store.getters.featuredMeetups
+		},
+      loading () {
+        return this.$store.getters.loading
+      }
 	},
 	methods:{
 		onLoadMeetup (id){
